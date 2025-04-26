@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labs & Workshops - CampusNav</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f0f4f8;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    h1 {
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #333;
+    }
+
+    .search-bar {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .search-bar button {
+      padding: 0.75rem 1.5rem;
+      background: #3498db;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .search-bar button:hover {
+      background: #2980b9;
+    }
+
+    .labs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .lab {
+      background: white;
+      padding: 2rem;
+      width: 250px;
+      height: 150px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      scroll-margin-top: 120px;
+      transition: background 0.3s ease;
+    }
+
+    .lab:hover {
+      background: #d6eaf8;
+    }
+
+    #detailsSection {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #detailsSection h2 {
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+
+    #labLocation {
+      font-weight: bold;
+      color: #3498db;
+      margin-bottom: 1rem;
+    }
+
+    #detailsSection p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    #labImage {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <h1>Labs & Workshops Directory</h1>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Enter lab/workshop name (e.g., Physics Lab)" />
+    <button onclick="searchLab()">Locate</button>
+  </div>
+
+  <!-- Labs/Workshops List -->
+  <div class="labs">
+    <div id="Ubuntu lab" class="lab" onclick="showDetails('Ubuntu lab')">Ubuntu lab</div>
+    <div id="Thin Client Lab" class="lab" onclick="showDetails('Thin Client Lab')">Thin ClientLab</div>
+    <div id="PhysicsLab" class="lab" onclick="showDetails('PhysicsLab')">Physics Lab</div>
+    <div id="ChemistryLab" class="lab" onclick="showDetails('ChemistryLab')">Chemistry Lab</div>
+    <div id="ComputerLab1" class="lab" onclick="showDetails('ComputerLab1')">Computer Lab 1</div>
+    <div id="ComputerLab2" class="lab" onclick="showDetails('ComputerLab2')">Computer Lab 2</div>
+    <div id="ComputerLab3" class="lab" onclick="showDetails('ComputerLab3')">Computer Lab 3</div>
+    <div id="ComputerLab4" class="lab" onclick="showDetails('ComputerLab4')">Computer Lab 4</div>
+    <div id="ComputerLab5" class="lab" onclick="showDetails('ComputerLab5')">Computer Lab 5</div>
+    <div id="ComputerLab6" class="lab" onclick="showDetails('ComputerLab6')">Computer Lab 6</div>
+    <div id="ComputerLab7" class="lab" onclick="showDetails('ComputerLab7')">Computer Lab 7</div>
+    <div id="ComputerLab8" class="lab" onclick="showDetails('ComputerLab8')">Computer Lab 8</div>
+    <div id="ComputerLab9" class="lab" onclick="showDetails('ComputerLab9')">Computer Lab 9</div>
+    <div id="RoboticsWorkshop" class="lab" onclick="showDetails('RoboticsWorkshop')">Robotics Workshop</div>
+    <div id="ElectronicsLab" class="lab" onclick="showDetails('ElectronicsLab')">Electronics Lab</div>
+    <div id="MechanicalWorkshop" class="lab" onclick="showDetails('MechanicalWorkshop')">Mechanical Workshop</div>
+    <div id="IoTLab" class="lab" onclick="showDetails('IoTLab')">IoT Lab</div>
+    <div id="3DPrintingLab" class="lab" onclick="showDetails('3DPrintingLab')">3D Printing Lab</div>
+  </div>
+
+  <!-- Details Section -->
+  <div id="detailsSection">
+    <h2 id="labTitle"></h2>
+    <p id="labLocation"></p>
+    <p id="labDesc"></p>
+    <img id="labImage" src="" alt="Lab Image" />
+  </div>
+
+  <script>
+    const labInfo = {
+      'Ubuntu lab': {
+        title: 'Ubuntu Lab',
+        location: 'Ground Floor, backwing',
+        desc: 'Dedicated lab for Linux-based programming and development. Equipped with Ubuntu OS on all machines.',
+        image: 'ul.png'  // Store image URL here
+      },
+      'Thin Client Lab': {
+        title: 'Thin Client Lab',
+        location: 'Ground Floor, backwing',
+        desc: 'Virtualized environment for software development and testing. High-performance thin clients available.',
+        image: ''  // No image for this lab
+      },
+      'PhysicsLab': {
+        title: 'Physics Laboratory',
+        location: '4th Floor, backwing',
+        desc: 'Equipped with experimental apparatus for Mechanics, Optics, Electromagnetism studies. Capacity: 40 students.',
+        image: ''  // No image for this lab
+      },
+      // other lab details...
+    };
+
+    function searchLab() {
+      const searchValue = document.getElementById('searchInput').value.trim().replace(/\s+/g, '');
+      const labElement = document.getElementById(searchValue);
+
+      if (labElement) {
+        labElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        labElement.style.background = "#d1ecf1";
+        setTimeout(() => {
+          labElement.style.background = "white";
+        }, 2000);
+        showDetails(searchValue);
+      } else {
+        alert("Lab/Workshop not found! Please check the spelling.");
+      }
+    }
+
+    function showDetails(labId) {
+      const info = labInfo[labId];
+      if (info) {
+        document.getElementById('labTitle').innerText = info.title;
+        document.getElementById('labLocation').innerText = "Location: " + info.location;
+        document.getElementById('labDesc').innerText = info.desc;
+
+        // Set the image if available
+        const labImage = document.getElementById('labImage');
+        if (info.image) {
+          labImage.src = info.image;
+          labImage.style.display = 'block';  // Show image if present
+        } else {
+          labImage.style.display = 'none';  // Hide image if not available
+        }
+
+        document.getElementById('detailsSection').style.display = 'block';
+        document.getElementById('detailsSection').scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  </script>
+
+</body>
+
+</html>
