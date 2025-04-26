@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Campus Navigation - Welcome</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0; font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      display: flex; justify-content: center; align-items: center; height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 90%;
+    }
+    h1 { margin-bottom: 0.5rem; color: #004d40; }
+    p { font-size: 1.2rem; margin-bottom: 2rem; color: #555; }
+    .role-buttons button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 1rem;
+      font-size: 1rem;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .role-buttons button:hover { background-color: #004d40; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Welcome to Campus Navigation</h1>
+    <p>Please select your identity to continue:</p>
+
+    <div class="role-buttons">
+      <button onclick="selectRole('student')">🎓 I'm a Student</button>
+      <button onclick="selectRole('faculty')">👨‍🏫 I'm Faculty</button>
+      <button onclick="selectRole('visitor')">🧳 I'm a Visitor</button>
+      <button onclick="selectRole('non registered')"> non registered</button>
+    </div>
+  </div>
+
+  <script>
+    function selectRole(role) {
+      localStorage.setItem("userRole", role);
+      window.location.href = "verify.html";
+    }
+  </script>
+
+</body>
+</html>
