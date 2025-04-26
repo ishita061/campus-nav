@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Classrooms - CampusNav</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <style>
+
+    * {
+
+      margin: 0;
+
+      padding: 0;
+
+      box-sizing: border-box;
+
+      font-family: 'Inter', sans-serif;
+
+    }
+
+
+
+    body {
+
+      background: #f5f5f5;
+
+      padding: 2rem;
+
+      line-height: 1.6;
+
+    }
+
+
+
+    h1 {
+
+      margin-bottom: 2rem;
+
+      text-align: center;
+
+      font-size: 2.5rem;
+
+      color: #333;
+
+    }
+
+
+
+    .search-bar {
+
+      width: 100%;
+
+      max-width: 600px;
+
+      margin: 0 auto 2rem auto;
+
+      display: flex;
+
+      gap: 0.5rem;
+
+    }
+
+
+
+    .search-bar input {
+
+      flex: 1;
+
+      padding: 0.75rem;
+
+      border-radius: 8px;
+
+      border: 1px solid #ccc;
+
+      font-size: 1rem;
+
+    }
+
+
+
+    .search-bar button {
+
+      padding: 0.75rem 1.5rem;
+
+      background: #4CAF50;
+
+      border: none;
+
+      border-radius: 8px;
+
+      color: white;
+
+      font-size: 1rem;
+
+      cursor: pointer;
+
+      transition: background 0.3s ease;
+
+    }
+
+
+
+    .search-bar button:hover {
+
+      background: #45a049;
+
+    }
+
+
+
+    .classrooms {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 1.5rem;
+
+      justify-content: center;
+
+      margin-top: 2rem;
+
+    }
+
+
+
+    .classroom {
+
+      background: white;
+
+      padding: 2rem;
+
+      width: 250px;
+
+      height: 150px;
+
+      border-radius: 12px;
+
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 1.2rem;
+
+      text-align: center;
+
+      cursor: pointer;
+
+      scroll-margin-top: 120px;
+
+      transition: background 0.3s ease;
+
+    }
+
+
+
+    .classroom:hover {
+
+      background: #e7f9ed;
+
+    }
+
+
+
+    #detailsSection {
+
+      margin-top: 3rem;
+
+      padding: 2rem;
+
+      background: white;
+
+      border-radius: 12px;
+
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+      max-width: 800px;
+
+      margin-left: auto;
+
+      margin-right: auto;
+
+      display: none;
+
+      animation: fadeIn 0.5s ease forwards;
+
+    }
+
+
+
+    @keyframes fadeIn {
+
+      from { opacity: 0; transform: translateY(20px);}
+
+      to { opacity: 1; transform: translateY(0);}
+
+    }
+
+
+
+    #detailsSection h2 {
+
+      margin-bottom: 1rem;
+
+      color: #2c3e50;
+
+    }
+
+
+
+    #detailsSection p {
+
+      font-size: 1.1rem;
+
+      color: #555;
+
+    }
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+
+
+  <h1>Lecture Hall Directory</h1>
+
+
+
+  <!-- Search Bar -->
+
+  <div class="search-bar">
+
+    <input type="text" id="searchInput" placeholder="Enter Lecture Hall (e.g., LT-101)" />
+
+    <button onclick="searchClassroom()">Find</button>
+
+  </div>
+
+
+
+  <!-- Classrooms List -->
+
+  <div class="classrooms">
+
+  
+
+    <div id="LT-201" class="classroom" onclick="showDetails('LT-201')">LT-201</div>
+
+    <div id="LT-202" class="classroom" onclick="showDetails('LT-202')">LT-202</div>
+
+    <div id="LT-301" class="classroom" onclick="showDetails('LT-301')">LT-301</div>
+
+    <div id="LT-302" class="classroom" onclick="showDetails('LT-302')">LT-302</div>
+
+    <div id="LT-401" class="classroom" onclick="showDetails('LT-401')">LT-401</div>
+
+    <div id="LT-402" class="classroom" onclick="showDetails('LT-402')">LT-402</div>
+
+    <div id="LT-501" class="classroom" onclick="showDetails('LT-501')">LT-501</div>
+
+    <div id="LT-502" class="classroom" onclick="showDetails('LT-502')">LT-502</div>
+
+    <div id="LT-601" class="classroom" onclick="showDetails('LT-601')">LT-601</div>
+
+    <div id="LT-602" class="classroom" onclick="showDetails('LT-602')">LT-602</div>
+
+    <div id="Seminar Hall" class="classroom" onclick="showDetails('Seminar Hall')">Seminar Hall</div>
+
+    <div id="Meeting Hall" class="classroom" onclick="showDetails('Meeting Hall')">Meeting Hal</div>
+    
+
+  </div>
+
+
+
+  <!-- Details Section -->
+
+  <div id="detailsSection">
+
+    <h2 id="classroomTitle"></h2>
+
+    <p id="classroomDesc"></p>
+
+  </div>
+
+
+
+  <script>
+
+    const classroomInfo = {
+
+      'LT-201': {
+
+        title: 'LT-201 - Computer Science Basics',
+
+        location: '2nd Floor, front wing near the library',
+
+        desc: 'Capacity: 240 students. Equipped with smartboard, projectors, and high-speed WiFi. Mostly used for first-year CSE classes.'
+
+      },
+
+      'LT-202': {
+
+        title: 'LT-201- Mathematics Lab',
+
+        location: '2nd Floor, front wing near the TCL',
+
+        desc: 'Capacity: 400 students. Specializes in math-based simulations and problem-solving workshops.'
+
+      },
+
+      'LT-301': {
+
+    
+
+      
+
+        title: 'LT-301 - Physics Lecture Room',
+
+        location: '2rd Floor, front wing near the ',
+
+        desc: 'Capacity: 250 students. Equipped with experimental kits and demonstration models.'
+
+      },
+
+
+
+      'LT-302': {
+
+    
+
+      
+
+        title: 'LT-302 - Physics Lecture Room',
+
+        location: '2rd Floor, front wing near the open auditorium ',
+
+        desc: 'Capacity: 245 students. Equipped with smart projectors.'
+
+      },
+
+      'LT-401': {
+
+        title: 'LT-401- Chemistry Practical Hall',
+
+        location: '3rd Floor, front wing near the open auditorium ',
+
+        desc: 'Capacity: 200 students.  Equipped with smart projectors.'
+
+      },
+
+      'LT-402': {
+
+        title: 'LT-402- Data Structures Lab',
+
+        location: '3rd Floor, front wing near the open auditorium ',
+
+        desc: 'Capacity: 250 students. Equipped with smart projectors.'
+
+      },
+
+      'LT-501': {
+
+        title: 'LT-501- IoT and Embedded Systems Lab',
+
+        location: '4rd Floor, front wing near the open auditorium ',
+
+        desc: 'Capacity: 230 students. Equipped with smart projectors.'
+
+      },
+
+      'LT-502': {
+
+        title: 'LT-502 - IoT and Embedded Systems Lab',
+
+        location: '4rd Floor, front wing near the open auditorium ',
+
+        desc: 'Capacity: 160 students. Equipped with smart projectors.'
+
+        },
+
+      'LT-601': {
+
+        title: 'LT-602- Business Management Classroom',
+
+        location: '5rd Floor, front wing near the open auditorium ',
+
+        desc: 'Capacity: 240 students. Equipped with smart projectors.'
+
+      },
+
+      'LT-602': {
+
+        title: 'LT-602 - Robotics Workshop',
+
+        location: '5rd Floor, front wing near the open auditorium ',
+
+        desc: 'Capacity: 225 students.  Equipped with smart projectors.'
+
+      },
+
+      'Seminar Hall': {
+
+        title: 'Seminar Hall',
+
+        location: 'GroundFloor, front wing near the open auditorium ',
+
+        desc: 'Capacity: 240 students. Equipped with smart projectors.'
+
+      },
+
+      'Meeting Hall': {
+
+        title: 'Meeting Hall',
+
+        location: 'Ground Floor, front wing near the open auditorium ',
+
+        desc: 'Capacity: 140 students. Equipped with smart projectors.'
+
+      },
+
+    };
+
+
+
+    function searchClassroom() {
+
+      const searchValue = document.getElementById('searchInput').value.trim().toUpperCase();
+
+      const classroomElement = document.getElementById(searchValue);
+
+
+
+      if (classroomElement) {
+
+        classroomElement.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        classroomElement.style.background = "#D4EDDA";
+
+        setTimeout(() => {
+
+          classroomElement.style.background = "white";
+
+        }, 2000);
+
+        showDetails(searchValue);
+
+      } else {
+
+        alert("Classroom not found! Please check the code.");
+
+      }
+
+    }
+
+
+
+    function showDetails(classroomId) {
+
+      const info = classroomInfo[classroomId];
+
+      if (info) {
+
+        document.getElementById('classroomTitle').innerText = info.title;
+
+        document.getElementById('classroomDesc').innerText = info.desc;
+
+        document.getElementById('detailsSection').style.display = 'block';
+
+        document.getElementById('detailsSection').scrollIntoView({ behavior: "smooth" });
+
+      }
+
+    }
+
+  </script>
+
+
+
+</body>
+
+</html>
