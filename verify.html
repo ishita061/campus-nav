@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Campus Navigation - Verify</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0; font-family: "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      display: flex; justify-content: center; align-items: center; height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+    h2 { color: #00796b; }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+    button:hover { background-color: #004d40; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 id="title">Verify Your Identity</h2>
+
+    <form id="verifyForm">
+      <div id="formFields"></div>
+      <button type="submit">Verify</button>
+    </form>
+  </div>
+
+  <script>
+    const role = localStorage.getItem('userRole');
+    const formFields = document.getElementById('formFields');
+    const title = document.getElementById('title');
+
+    if (!role) {
+      window.location.href = "chome.html";
+    } else {
+      if (role === 'student') {
+        title.innerText = "Student Verification";
+        formFields.innerHTML = `
+          <input type="text" id="studentId" placeholder="Enter Student ID" required>
+          <input type="password" id="studentPassword" placeholder="Enter Password" required>
+        `;
+      } else if (role === 'faculty') {
+        title.innerText = "Faculty Verification";
+        formFields.innerHTML = `
+          <input type="text" id="facultyName" placeholder="Enter Name" required>
+          <input type="password" id="facultyPassword" placeholder="Enter Password" required>
+        `;
+      } else if (role === 'visitor') {
+        title.innerText = "Visitor Verification";
+        formFields.innerHTML = `
+          <input type="text" id="verificationNumber" placeholder="Enter Phone Number" required>
+        `;
+      }
+    }
+
+    document.getElementById('verifyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let verified = false;
+
+      if (role === 'student') {
+        const id = document.getElementById('studentId').value;
+        const pass = document.getElementById('studentPassword').value;
+        if (id === "12456" && pass === "yo") {
+          verified = true;
+        }
+      } else if (role === 'faculty') {
+        const name = document.getElementById('facultyName').value;
+        const pass = document.getElementById('facultyPassword').value;
+        if (name.toLowerCase() === "its me" && pass === "123") {
+          verified = true;
+        }
+      } else if (role === 'visitor') {
+        const verif = document.getElementById('verificationNumber').value;
+        if (verif === "2024") {
+          verified = true;
+        }
+      }
+
+      if (verified) {
+        alert("Verification Successful!");
+        window.location.href = "chome.html"; 
+      } else {
+        alert("Verification Failed! Redirecting to Start...");
+        window.location.href = "first.html"; 
+      }
+    }
+    
+    );
+  </script>
+
+</body>
+</html>
